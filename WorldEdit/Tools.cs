@@ -134,7 +134,7 @@ namespace WorldEdit
         }
 
         public static Rectangle ReadSize(string path) =>
-            ReadSize(File.Open(path, FileMode.Open));
+            ReadSize(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read));
 
         #region LoadWorldSectionData
 
@@ -249,7 +249,7 @@ namespace WorldEdit
         }
 
         public static WorldSectionData LoadWorldData(string path) =>
-            LoadWorldData(File.Open(path, FileMode.Open));
+            LoadWorldData(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read));
 
         internal static WorldSectionData LoadWorldDataOld(Stream stream)
         {
