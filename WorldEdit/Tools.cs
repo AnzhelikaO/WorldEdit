@@ -10,6 +10,7 @@ using Terraria.GameContent.Tile_Entities;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using WorldEdit.Commands;
+using System.Threading;
 
 namespace WorldEdit
 {
@@ -19,7 +20,8 @@ namespace WorldEdit
         internal static int MAX_UNDOS;
 
         private static Random rnd = new Random();
-        public static bool TranslateFrom140To144(string path, bool logError, string tempCopyPath = null)
+        public static bool TranslateFrom140To144(
+            string path, bool log, int totalFiles, ref int counter, string tempCopyPath = null)
         {
             string tempPath = tempCopyPath ?? Path.Combine(WorldEdit.WorldEditFolderName, $"temp-{rnd.NextInt64()}.dat");
             File.Copy(path, tempPath, true);
@@ -28,7 +30,7 @@ namespace WorldEdit
             try { LoadWorldDataOld140(path).Write(path); }
             catch (Exception e)
             {
-                if (logError)
+                if (log)
                     TShock.Log.ConsoleError($"[WorldEdit] File '{path}' could not be converted to Terraria v1.4.4:\n{e}");
                 translated = false;
             }
@@ -36,10 +38,13 @@ namespace WorldEdit
             if (!translated)
                 File.Copy(tempPath, path, true);
             File.Delete(tempPath);
+            if (log)
+                LogSchematicTranslationProgress(totalFiles, ref counter);
 
             return translated;
         }
-        public static bool TranslateFromPre140To144(string path, bool logError, string tempCopyPath = null)
+        public static bool TranslateFromPre140To144(
+            string path, bool log, int totalFiles, ref int counter, string tempCopyPath = null)
         {
             string tempPath = tempCopyPath ?? Path.Combine(WorldEdit.WorldEditFolderName, $"temp-{rnd.NextInt64()}.dat");
             File.Copy(path, tempPath, true);
@@ -48,7 +53,7 @@ namespace WorldEdit
             try { LoadWorldDataOldPre140(path).Write(path); }
             catch (Exception e)
             {
-                if (logError)
+                if (log)
                     TShock.Log.ConsoleError($"[WorldEdit] File '{path}' could not be converted to Terraria v1.4.0:\n{e}");
                 translated = false;
             }
@@ -56,8 +61,19 @@ namespace WorldEdit
             if (!translated)
                 File.Copy(tempPath, path, true);
             File.Delete(tempPath);
+            if (log)
+                LogSchematicTranslationProgress(totalFiles, ref counter);
 
             return translated;
+        }
+
+        private static void LogSchematicTranslationProgress(int totalFiles, ref int counter)
+        {
+            int count = Interlocked.Increment(ref counter);
+            if (count % 100 == 0)
+            {
+                Console.WriteLine($"Schematic translation progress: {count} / {totalFiles} schematics translated");
+            }
         }
 
         public static bool InMapBoundaries(int X, int Y) =>
