@@ -340,6 +340,7 @@ internal partial class Program
                         dataWriter.Write((ushort)tile.sTileHeader);
                         dataWriter.Write((byte)tile.bTileHeader);
                         dataWriter.Write((byte)tile.bTileHeader2);
+                        dataWriter.Write((byte)tile.bTileHeader3);
 
                         if (tile.active())
                         {
