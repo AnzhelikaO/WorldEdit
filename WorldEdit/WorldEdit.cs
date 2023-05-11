@@ -20,6 +20,7 @@ using TShockAPI.DB;
 using WorldEdit.Commands;
 using WorldEdit.Expressions;
 using WorldEdit.Extensions;
+using Microsoft.VisualBasic.FileIO;
 
 namespace WorldEdit
 {
@@ -2097,7 +2098,7 @@ namespace WorldEdit
 							return;
 						}
 
-						File.Delete(path);
+						FileSystem.DeleteFile(path, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
 						e.Player.SendErrorMessage("Deleted schematic '{0}'.", e.Parameters[2]);
 					}
 					return;
