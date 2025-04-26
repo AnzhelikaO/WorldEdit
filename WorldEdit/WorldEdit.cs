@@ -592,7 +592,7 @@ namespace WorldEdit
 
 			Main.player[Main.myPlayer] = new Player();
 			var item = new Item();
-			for (var i = 1; i < Main.maxItemTypes; i++)
+			for (var i = 1; i < ItemID.Count; i++)
 			{
 				item.netDefaults(i);
 
@@ -667,7 +667,7 @@ namespace WorldEdit
 
 			foreach (var fi in typeof(WallID).GetFields())
 			{
-				if (!(fi.GetValue(null) is ushort id) || (id < 0) || (id >= Main.maxWallTypes))
+				if (!(fi.GetValue(null) is ushort id) || (id < 0) || (id >= WallID.Count))
 					continue;
 				string name = fi.Name;
 				var sb = new StringBuilder();

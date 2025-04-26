@@ -4,13 +4,13 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using Terraria;
+using Terraria.ID;
 using TShockAPI;
 using TShockAPI.DB;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using WorldEdit.Commands;
-using System.Threading;
 
 namespace WorldEdit
 {
@@ -52,7 +52,7 @@ namespace WorldEdit
         }
         public static List<TilePlaceID> GetTileID(string tile)
         {
-            if (int.TryParse(tile, out int ID) && ID >= 0 && ID < Main.maxTileSets)
+            if (int.TryParse(tile, out int ID) && ID >= 0 && ID < TileID.Count)
                 return new() { new BlockPlaceID(ID, -1, tile) };
 
             if (tile.Contains("/") && tile.Split("/").Count() == 2)
@@ -60,7 +60,7 @@ namespace WorldEdit
                 var arr = tile.Split("/");
 
                 if (
-                    int.TryParse(arr[0], out int ID1) && ID1 >= 0 && ID1 < Main.maxTileSets
+                    int.TryParse(arr[0], out int ID1) && ID1 >= 0 && ID1 < TileID.Count
                     &&
                     int.TryParse(arr[1], out int ID2) && ID2 >= 0
                 )
@@ -82,7 +82,7 @@ namespace WorldEdit
         public static List<WallPlaceID> GetWallID(string wall)
         {
             int ID;
-            if (int.TryParse(wall, out ID) && ID >= 0 && ID < Main.maxWallTypes)
+            if (int.TryParse(wall, out ID) && ID >= 0 && ID < WallID.Count)
                 return new() { new(ID, wall) };
 
             var list = new List<WallPlaceID>();

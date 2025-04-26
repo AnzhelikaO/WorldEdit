@@ -5,11 +5,11 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="TShock" Version="5.0.0-beta" />
-    <PackageReference Include="TSAPI" Version="5.0.0-beta" />
-    <PackageReference Include="OTAPI.Upcoming" Version="3.1.8-alpha" />
+    <PackageReference Include="TShock" Version="5.2.4" />
+    <PackageReference Include="TSAPI" Version="5.2.1" />
+    <PackageReference Include="OTAPI.Upcoming" Version="3.1.20" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="MySql.Data" Version="8.0.30" />
+    <PackageReference Include="MySql.Data" Version="9.3.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
