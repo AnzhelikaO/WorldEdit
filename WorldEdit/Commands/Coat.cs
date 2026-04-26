@@ -70,7 +70,7 @@ namespace WorldEdit.Commands
 				for (int j = y; j <= y2; j++)
 				{
 					var tile = Main.tile[i, j];
-					if (tile.active() && condition(tile) && (expression?.Evaluate(tile) ?? true) && magicWand.InSelection(i, j))
+					if ((tile.active() && !walls || walls && tile.wall > 0) && condition(tile) && (expression?.Evaluate(tile) ?? true) && magicWand.InSelection(i, j))
 					{
 						perform(tile);
 						edits++;
