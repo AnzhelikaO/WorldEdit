@@ -568,7 +568,7 @@ namespace WorldEdit
 
             foreach (var jar in Data.DeadCellsDisplayJars)
             {
-                var id = TileEntity.Place(jar.X + x, jar.Y + y, new TEDeadCellsDisplayJar().type);
+                var id = TEDeadCellsDisplayJar.Place(jar.X + x, jar.Y + y);
                 if (id == -1) { continue; }
 
                 var jarEntity = (TEDeadCellsDisplayJar)TileEntity.ByID[id];
