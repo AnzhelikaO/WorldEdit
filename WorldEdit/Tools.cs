@@ -497,7 +497,7 @@ namespace WorldEdit
                     item.netDefaults(netItem.NetId);
                     item.stack = netItem.Stack;
                     item.prefix = netItem.PrefixId;
-                    doll.Equipment[i] = item;
+                    doll._equip[i] = item;
                 }
                 doll._dyes = new Item[displayDoll.Dyes.Length];
                 for (int i = 0; i < displayDoll.Dyes.Length; i++)

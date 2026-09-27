@@ -6,12 +6,12 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
-    <PackageReference Include="OTAPI.Upcoming" Version="3.3.10" />
+    <PackageReference Include="OTAPI.Upcoming" Version="3.3.14" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="MySql.Data" Version="9.1.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="TSAPI" Version="6.0.0" />
-    <PackageReference Include="TShock" Version="6.0.0" />
+    <PackageReference Include="TSAPI" Version="6.2.1" />
+    <PackageReference Include="TShock" Version="6.2.1" />
   </ItemGroup>
 </Project>

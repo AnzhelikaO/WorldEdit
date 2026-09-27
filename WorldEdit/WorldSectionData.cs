@@ -208,7 +208,7 @@ namespace WorldEdit
 							var doll = (TEDisplayDoll)TileEntity.ByID[id];
 							DisplayDolls.Add(new DisplayDollData()
 							{
-								Items = doll.Equipment.Select(i => new NetItem(i.type, i.stack, i.prefix)).ToArray(),
+								Items = doll._equip.Select(i => new NetItem(i.type, i.stack, i.prefix)).ToArray(),
 								Dyes = doll._dyes.Select(i => new NetItem(i.type, i.stack, i.prefix)).ToArray(),
 								Misc = doll._misc.Select(i => new NetItem(i.type, i.stack, i.prefix)).ToArray(),
 								Pose = doll._pose,
