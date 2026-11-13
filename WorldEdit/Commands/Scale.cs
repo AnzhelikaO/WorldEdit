@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using TShockAPI;
 using Terraria;
 using System.Linq;
@@ -23,39 +24,57 @@ namespace WorldEdit.Commands
 
 			var data = Tools.LoadWorldData(clipboardPath);
 
+            // Block clipboards bigger than the world
+            if (_addition && ((long)data.Width * _scale > Main.maxTilesX
+                || (long)data.Height * _scale > Main.maxTilesY))
+            {
+                plr.SendErrorMessage("Invalid amount!");
+                return;
+            }
+
             if (_addition)
             {
-                using (var writer = WorldSectionData.WriteHeader(clipboardPath, 0, 0, data.Width * _scale, data.Height * _scale))
+                try
                 {
-                    var r = new List<ITile>();
-                    for (var i = 0; i < data.Width; i++)
+                    using (var writer = WorldSectionData.WriteHeader(
+                        clipboardPath, 0, 0, data.Width * _scale, data.Height * _scale))
                     {
-                        for (var j = 0; j < data.Height; j++)
+                        var r = new List<ITile>();
+                        for (var i = 0; i < data.Width; i++)
                         {
-                            for (var a = 0; a < _scale; a++)
+                            for (var j = 0; j < data.Height; j++)
                             {
-                                writer.Write(data.Tiles[i, j]);
-                            }
-                            r.Add(data.Tiles[i, j]);
-
-                            if (j != data.Height - 1)
-                            {
-                                continue;
-                            }
-
-                            for (var a = 0; a < _scale - 1; a++)
-                            {
-                                foreach (var t in r)
+                                for (var a = 0; a < _scale; a++)
                                 {
-                                    for (var b = 0; b < _scale; b++)
+                                    writer.Write(data.Tiles[i, j]);
+                                }
+                                r.Add(data.Tiles[i, j]);
+
+                                if (j != data.Height - 1)
+                                {
+                                    continue;
+                                }
+
+                                for (var a = 0; a < _scale - 1; a++)
+                                {
+                                    foreach (var t in r)
                                     {
-                                        writer.Write(t);
+                                        for (var b = 0; b < _scale; b++)
+                                        {
+                                            writer.Write(t);
+                                        }
                                     }
                                 }
+                                r.Clear();
                             }
-                            r.Clear();
                         }
                     }
+                }
+                catch
+                {
+                    // Don't leave a partly written clipboard behind
+                    File.Delete(clipboardPath);
+                    throw;
                 }
             }
             else

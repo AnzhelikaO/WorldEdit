@@ -2084,7 +2084,7 @@ namespace WorldEdit
 				e.Player.SendErrorMessage("Invalid clipboard!");
 				return;
 			}
-			if (!int.TryParse(e.Parameters[1], out int scale))
+			if (!int.TryParse(e.Parameters[1], out int scale) || scale < 1)
 			{
 				e.Player.SendErrorMessage("Invalid amount!");
 				return;
